@@ -1,2 +1,1 @@
-# spot-alert-management
-# init test
+# spot-alert-managementsystem
