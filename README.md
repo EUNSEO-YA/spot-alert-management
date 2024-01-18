@@ -1,3 +1,2 @@
 # spot-alert-management
-# test
-# branch test
+# init test
