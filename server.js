@@ -20,7 +20,7 @@ app.post('/login', (req, res) => {
     console.log("Police Office Code:", policeOfficeCode);
 
     if (parseInt(policeOfficeCode) === 1234) {
-        res.send('Welcome!');
+        res.sendFile(path.join(__dirname, 'alert.html'));
     } else {
         res.send('Please try again.');
     }
