@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신고하기</title>
+
+    <script language="javascript">
+        function moveClose() {
+            opener.location.href="login.html";
+            self.close();
+        }
+    </script>
+
+</head>
+<body>
+    <h2> 신고자 정보 입력 </h2>
+    <form id="reportFrom">
+        <ul>
+            <p> 이름 
+                <input type="text" name="NAME" placeholder="NAME">
+            </p>
+        </ul>
+        <ul>
+            <p> 전화번호
+                <input type="text" name="PHONE" placeholder="PHONE">
+            </p>
+        </ul>
+        <ul>
+            <p> 현재 신고자의 위치
+                <input type="text" name="LOCATION" placeholder="LOCATION">
+            </p>
+        </ul>
+    </form>
+
+    <div>
+        <input type="button" value="취소하기" onclick="self.close();"/>
+        <input type="button" value="신고하기" onclick="submitForm();"/>
+    </div>
+    <script scr="report_popup.js"></script>
+    <script scr="db.js"></script>
+</body>
+</html>
