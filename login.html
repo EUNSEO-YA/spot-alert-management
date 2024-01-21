@@ -5,14 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="css/style.css">
+
+    <script language="javascript">
+        function showPopup() {
+            window.open("report_popup.html","report","width=400, height=300, left=100, top=50");
+        }
+    </script>
 </head>
 <body>
-    <form action="/login" method="POST" > 
-        <div class="form-group">
-            <input id="police_office_name" class="form-control" name="police_office_name" placeholder="Enter police office name"/>
-            <input id="police_office_code" class="form-control" name="police_office_code" placeholder="Enter code"/>
+        <form action="/login" method="POST" > 
+            <div class="form-group">
+                <input id="police_office_name" class="form-control" name="police_office_name" placeholder="Enter police office name"/>
+                <input id="police_office_code" class="form-control" name="police_office_code" placeholder="Enter code"/>
+                <button type="submit"></button>
+            </div>
+        </form>
+
+        <div>
+            <!-- 신고하기 button 누르면 팝업창 띄우기 -->
+            <input type="button" value="신고하기" onclick="showPopup();"/>
         </div>
-        <button type="submit"></button>
-    </form>
 </body>
 </html>
