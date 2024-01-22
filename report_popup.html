@@ -18,17 +18,17 @@
     <form id="reportFrom">
         <ul>
             <p> 이름 
-                <input type="text" name="NAME" placeholder="NAME">
+                <input type="text" id="NAME" name="NAME" placeholder="NAME">
             </p>
         </ul>
         <ul>
             <p> 전화번호
-                <input type="text" name="PHONE" placeholder="PHONE">
+                <input type="text" id="PHONE" name="PHONE" placeholder="PHONE">
             </p>
         </ul>
         <ul>
             <p> 현재 신고자의 위치
-                <input type="text" name="LOCATION" placeholder="LOCATION">
+                <input type="text" id="LOCATION" name="LOCATION" placeholder="LOCATION">
             </p>
         </ul>
     </form>
@@ -37,7 +37,31 @@
         <input type="button" value="취소하기" onclick="self.close();"/>
         <input type="button" value="신고하기" onclick="submitForm();"/>
     </div>
-    <script scr="report_popup.js"></script>
-    <script scr="db.js"></script>
+    <script language="javascript">
+        function submitForm() {
+            console.log('submitForm 함수 호출됨');
+        
+            const NAME = document.getElementById('NAME').value;
+            const PHONE = document.getElementById('PHONE').value;
+            const LOCATION = document.getElementById('LOCATION').value;
+        
+            // Fetch API를 사용하여 서버에 데이터 전송
+            fetch('http://localhost:8000/submitReport', {
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json',
+                },
+                body: JSON.stringify({NAME, PHONE, LOCATION}),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('신고가 접수되었습니다', data);
+            })
+            .catch(error => {
+                console.error('오류 발생: ', error);
+            });
+        }
+    </script>
+
 </body>
 </html>

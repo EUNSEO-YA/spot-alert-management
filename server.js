@@ -2,11 +2,16 @@ let express=require('express');
 let app=express();
 let path=require('path');
 const cors=require('cors');
-const port = 8800;
+const bodyParser = require('body-parser');
+const mysql = require('mysql2');
+
+const port = 8000;
 
 app.use(cors());
 app.use(express.static(path.join(__dirname)));
+app.use(bodyParser.json());
 app.use(express.urlencoded({extended:false}));
+
 
 app.set('view engine', 'ejs'); 
 app.set('views', path.join(__dirname, 'views'));
@@ -16,6 +21,7 @@ app.get('/', (req, res) => {
 });
 //공공데이터포탈 openAPI 연결
 const request = require("request");
+
 const options = {
     method: "GET",
     url: "https://api.odcloud.kr/api/15054711/v1/uddi:9097ad1f-3471-42c6-a390-d85b5121816a?page=1&perPage=2051&serviceKey=7o7oLDcGaDuBkmvrCDRKWzDq5sD%2F9k4%2FpMurtSqgRZNtX9CmYlwDlF2sUzPQvWHt5EvfTXqPPtAoOFj70rlCNQ%3D%3D",
@@ -54,7 +60,37 @@ request(options, async(error, response, body) => {
         }
     });
 });
+//Connet to mysql
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'eunseo2823!!',
+    database: 'reporter',
+});
 
+connection.connect();
+connection.query('SELECT * from reporter', (error, rows, fields) => {
+  if (error) throw error;
+  console.log('User info is: ', rows);
+});
+
+// connection.end();
+
+app.post('/submitReport', (req, res) => {
+    console.log('신고 접수 요청 받음');
+
+    connection.query(
+        'INSERT INTO reporter VALUES (?, ?, ?)', [ req.body.NAME, req.body.PHONE, req.body.LOCATION],
+        (error, results) => {
+            if(error){
+                console.error('MySQL 에러: ', error);
+                res.status(500).json({error: 'DB Error'});
+            } else {
+                res.status(200).json({messaage: '신고가 정상적으로 접수되었습니다'});
+            }
+        }
+    );
+});
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
 });
