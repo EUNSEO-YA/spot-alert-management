@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>신고하기</title>
-
+    <link rel="stylesheet" href="css/popup.css">
     <script language="javascript">
         function moveClose() {
             opener.location.href="login.html";
@@ -14,29 +14,33 @@
 
 </head>
 <body>
-    <h2> 신고자 정보 입력 </h2>
+    <div>
+        <h2> 신고자 정보 입력 </h2>
+    </div>
+    
     <form id="reportFrom">
-        <ul>
+        <div>
             <p> 이름 
                 <input type="text" id="NAME" name="NAME" placeholder="NAME">
             </p>
-        </ul>
-        <ul>
+        </div>
+        <div>
             <p> 전화번호
                 <input type="text" id="PHONE" name="PHONE" placeholder="PHONE">
             </p>
-        </ul>
-        <ul>
+        </div>
+        <div>
             <p> 현재 신고자의 위치
                 <input type="text" id="LOCATION" name="LOCATION" placeholder="LOCATION">
             </p>
-        </ul>
+        </div>
+        <button class="btn_red" onclick="self.close();">취소하기</button>
+        <button class="btn_blue" onclick="submitForm();">신고하기</button>
     </form>
 
-    <div>
-        <input type="button" value="취소하기" onclick="self.close();"/>
-        <input type="button" value="신고하기" onclick="submitForm();"/>
-    </div>
+    <!-- <button class="red" value="취소하기" onclick="self.close();"></button>
+    <button class="blue" value="신고하기" onclick="submitForm();"></button> --> 
+    
     <script language="javascript">
         function submitForm() {
             console.log('submitForm 함수 호출됨');

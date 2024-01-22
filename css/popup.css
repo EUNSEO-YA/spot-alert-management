@@ -1,0 +1,98 @@
+:root {
+    --ruler: 16px;
+    --color-red: #AE1100;
+    --color-blue: #0496C7;
+    --color-bg: #EBECF0;
+    --color-shadow: #BABECC;
+    --color-white: #FFF;
+  }
+  
+  body {
+    background-color: var(--color-bg);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  body, p, input, select, textarea, button {
+    font-family: 'Montserrat', sans-serif;
+    font-size: var(--ruler);
+  }
+
+  p {
+    color: var(--color-shadow);
+  }
+  
+  .ul {
+    padding: calc(var(--ruler) * 2) 0;
+    text-align: center;
+  }
+  
+  button, input {
+    border: 0;
+    outline: 0;
+    font-size: var(--ruler);
+    border-radius: calc(var(--ruler) * 20);
+    padding: var(--ruler);
+    background-color: var(--color-bg);
+    text-shadow: 1px 1px 0 var(--color-white);
+  }
+  
+  ul {
+    display: block;
+    margin-bottom: calc(var(--ruler) * 1.5);
+    width: 100%;
+  }
+  
+  input {
+    box-shadow: inset 2px 2px 5px var(--color-shadow), inset -5px -5px 10px var(--color-white);
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  
+  input:focus {
+    box-shadow: inset 1px 1px 2px var(--color-shadow), inset -1px -1px 2px var(--color-white);
+  }
+  
+  button {
+    width:100%;
+    color: #61677C; 
+    font-weight: bold;
+    box-shadow: -5px -5px 20px var(--color-white), 5px 5px 20px var(--color-shadow);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+  
+  button:hover {
+    box-shadow: -2px -2px 5px var(--color-white), 2px 2px 5px var(--color-shadow);
+  }
+  
+  .btn_red {
+    display: block;
+    width: 100%;
+    color: var(--color-red);
+  }
+  .btn_red:hover {
+    var(--color-white);
+    background-color: var(--color-red);
+  }
+  
+  .btn_blue {
+    display: block;
+    width: 100%;
+    color: var(--color-blue);
+  }
+  .btn_blue:hover {
+    color: var(--color-white);
+    background-color: var(--color-blue);
+  }
+  
