@@ -13,17 +13,20 @@
     </script>
 </head>
 <body>
-        <form action="/login" method="POST" > 
-            <div class="form-group">
-                <input id="police_office_name" class="form-control" name="police_office_name" placeholder="Enter police office name"/>
-                <input id="police_office_code" class="form-control" name="police_office_code" placeholder="Enter code"/>
-                <button type="submit"></button>
-            </div>
-        </form>
-
-        <div>
-            <!-- 신고하기 button 누르면 팝업창 띄우기 -->
-            <input type="button" value="신고하기" onclick="showPopup();"/>
+    <form action="/login" method="POST">
+        <div class="segment">
+            <h1>Hello</h1>
         </div>
+        <label>
+            <input id="police_office_name" name="police_office_name" type="text" placeholder="Police office name"/>
+        </label>
+        <label>
+            <input id="police_office_code"  name="police_office_code" type="password" placeholder="Password"/>
+        </label>
+        <button class="red" type="submit">Go </button>
+        <div class="segment">
+            <button class="blue" type="button" onclick="showPopup();">신고하기</button>
+        </div>
+    </form>
 </body>
 </html>
