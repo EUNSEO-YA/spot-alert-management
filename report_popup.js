@@ -1,11 +1,9 @@
-const { response } = require("express");
-
 function submitForm() {
     console.log('submitForm 함수 호출됨');
 
-    const NAME = document.getElementById('NAME')[0].Value;
-    const PHONE = document.getElementById('PHONE')[0].Value;
-    const LOCATION = document.getElementById('LOCATION')[0].Value;
+    const NAME = document.getElementById('NAME').Value;
+    const PHONE = document.getElementById('PHONE').Value;
+    const LOCATION = document.getElementById('LOCATION').Value;
 
     // Fetch API를 사용하여 서버에 데이터 전송
     fetch('http://localhost:3300/submitReport', {
