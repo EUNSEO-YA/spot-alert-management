@@ -68,7 +68,13 @@ const connection = mysql.createConnection({
     database: 'reporter',
 });
 
-connection.connect();
+connection.connect((err) => {
+    if (err) {
+      console.error('MySQL 연결 오류: ' + err.stack);
+      return;
+    }
+});
+
 connection.query('SELECT * from reporter', (error, rows, fields) => {
   if (error) throw error;
   console.log('User info is: ', rows);
