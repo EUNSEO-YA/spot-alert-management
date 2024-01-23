@@ -12,22 +12,21 @@
         #centerAddr {display:block;margin-top:2px;font-weight: normal;}
         .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
     </style>
-    
     <script language="javascript">
         function moveClose() {
             opener.location.href="login.html";
             self.close();
         }
     </script>
-
 </head>
 <body>
-        <div id="map" style="width: 100%; height: 40vh; position: flex; top: 0;"></div>
+    <div id="map" style="width: 100%; height: 40vh; position: flex; top: 0;"></div>
         <div class="hAddr">
             <span class="title">지도중심기준 행정동 주소정보</span>
             <span id="centerAddr"></span>
-        </div>
-
+            <ul id="dataList"></ul>
+    </div>
+    
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=38a252c97cc5ba2f09615c31c39bc5bf&libraries=services"></script>
     <script>
         var mapContainer = document.getElementById('map'),
@@ -102,9 +101,40 @@
                         break;
                     }
                 }
+                fetch("../data/KPU_26_20211231_C_001.csv")
+                    .then(response => response.text())
+                    .then(csvData => {
+                        // CSV data 라인별로 구분
+                        var lines = csvData.trim().split('\n');
+
+                        lines.forEach(line => {
+                            var data = line.split(',');
+                            
+                            if (data[1] + " " + data[2] === infoDiv.innerHTML.split(" ").slice(0, 2).join(" ")) {
+
+                                var dataList = document.getElementById('dataList');
+                                var labels = ["가정폭력신고수", "데이트폭력신고수", "성폭력신고수", "몰래카메라신고수", "살인신고수", "강도신고수", "절도신고수", "폭력신고수"];
+
+                                for (var i = 0; i < 8; i++) {
+                                    var listItem;
+                                
+                                    if (i < dataList.children.length) {
+                                        listItem = dataList.children[i];
+                                        listItem.innerHTML = labels[i] + ': ' + data[i + 4];
+                                    } else {
+                                        listItem = document.createElement('li');
+                                        listItem.innerHTML = labels[i] + ': ' + data[i + 4];
+                                        dataList.appendChild(listItem);
+                                    }
+                                }
+                                
+                                
+                            }
+                        });
+                    })
+                    .catch(error => console.error('Error fetching CSV file:', error));
             }
         }
-
         function displayMarker(locPosition, message) {
             var marker = new kakao.maps.Marker({
                 map: map,
@@ -124,7 +154,6 @@
             map.setCenter(locPosition);
         }
     </script>
-    
     <!-- 신고자 -->
     <div>
         <h2> 신고자 정보 입력 </h2>
