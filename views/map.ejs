@@ -5,54 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/police.css">
     <title><%=policeOfficeName%> <%=policeStation%></title>
+    
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=38a252c97cc5ba2f09615c31c39bc5bf&libraries=services"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+   
 </head>
 <body>
     <div id="box_d">
         <h1 id="Song_Myung"><%=policeOfficeName%> <%=policeStation%> <%= address %> : Song Myung Static</h1>
-        <h1 id="Nanum_Myeongjo"><%=policeOfficeName%> <%=policeStation%> <%= address %> : Nanum Myeongjo Static</h1>
+        <!-- <h1 id="Nanum_Myeongjo"><%=policeOfficeName%> <%=policeStation%> <%= address %> : Nanum Myeongjo Static</h1> -->
     </div>
     <div id="map" style="width:100%;height:50vh;"></div>
-    <div id="container_map">
-        <div id="box_d">
-            <table class="rwd-table">
-                <tbody>
-                    <tr>
-                        <th>Name</th>
-                        <th>PHONE</th>
-                        <th>LOCATION</th>
-                        <th>FIELD</th>
-                    </tr>
-                    <% for (const reporter of reporterlist) { %>
-                        <tr>
-                            <td data-th="Name"><%= reporter.NAME %></td>
-                            <td data-th="PHONE"><%= reporter.PHONE %></td>
-                            <td data-th="LOCATION"><%= reporter.LOCATION %></td>
-                            <td data-th="FIELD"><%= reporter.FIELD %></td>
-                        </tr>
-                    <% } %>
-                </tbody>
-            </table>
-        </div>
-        <div id="box_m">
-        </div>
-        <div id="box_d">
-        </div>
-    </div>
-    
-    <div id="wrapper">
-        <div id="chart-area">
-      
-        </div>
-        <div id="chart-bar">
-      
-        </div>
-        
-        <a class="link" href="https://apexcharts.com?ref=codepen">apexcharts.com</a>
-    </div>
-    <script type="text/javascript" src="../views/chart.js"></script>
-
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=38a252c97cc5ba2f09615c31c39bc5bf&libraries=services"></script>
     <script>
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
         mapOption = { 
@@ -64,6 +27,7 @@
     var map = new kakao.maps.Map(mapContainer, mapOption);
     // 주소-좌표 변환 객체를 생성합니다
     var geocoder = new kakao.maps.services.Geocoder();
+
     // 마커 이미지의 이미지 주소입니다
     var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
     // 마커 이미지의 이미지 크기 입니다
@@ -97,6 +61,69 @@
 });   
     </script>
     
+    <div id="container_map">
+        <% 
+        // Assuming reporterlist is an array of objects with 'FIELD' property
+        const uniqueFields = [...new Set(reporterlist.map(reporter => reporter.FIELD))];
+        for (const field of uniqueFields) {
+        %>
+            <div id="box_d">
+                <h2> <%= field %> 신고접수 현황</h2>
+                <table class="rwd-table">
+                    <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <th>PHONE</th>
+                            <th>LOCATION</th>
+                            <th>FIELD</th>
+                        </tr>
+                        <% for (const reporter of reporterlist.filter(r => r.FIELD === field)) { %>
+                            <tr>
+                                <td data-th="Name"><%= reporter.NAME %></td>
+                                <td data-th="PHONE"><%= reporter.PHONE %></td>
+                                <td data-th="LOCATION"><%= reporter.LOCATION %></td>
+                                <td data-th="FIELD"><%= reporter.FIELD %></td>
+                            </tr>
+                            <script>
+                                var geocoder = new kakao.maps.services.Geocoder();
+                                geocoder.addressSearch("<%= reporter.LOCATION %>", function(result, status) {
+                                    // Check if the geocoding was successful
+                                    console.log("<%= reporter.LOCATION %>");
+                                    if (status === kakao.maps.services.Status.OK) {
+                                        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                                        var marker = new kakao.maps.Marker({
+                                            map: map,
+                                            position: coords,
+                                        });
+    
+                                        var infowindow = new kakao.maps.InfoWindow({
+                                            content: '<div style="width:150px;text-align:center;padding:6px 0; color:#000000;"><%= reporter.FIELD %> 신고 </div>'
+                                        });
+                                        infowindow.open(map, marker);
+    
+                                        map.setCenter(coords);
+                                    }
+                                });
+                            </script>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        <% } %>
+    </div>
+    
+     
+    <div id="wrapper">
+        <div id="chart-area">
+      
+        </div>
+        <div id="chart-bar">
+      
+        </div>
+        
+        <a class="link" href="https://apexcharts.com?ref=codepen">apexcharts.com</a>
+    </div>
+    <script type="text/javascript" src="../views/chart.js"></script>
     
 </body>
 </html>
