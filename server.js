@@ -50,9 +50,27 @@ request(options, async(error, response, body) => {
 
         const isPoliceOfficeNameIncluded = info.data.find(item => item['관서명'] === policeOfficeName);
 
+        // const
+
         if (parseInt(policeOfficeCode) === 1234 && isPoliceOfficeNameIncluded) {
             const policeStation = isPoliceOfficeNameIncluded['구분'];
             const address = isPoliceOfficeNameIncluded['주소'];
+
+            // MySQL에서 reporter 테이블 조회
+            connection.query('SELECT * FROM reporter', (error,reporterResults, fields)=> {
+                if(error) {
+                    console.error('MySQL 에러: ', error);
+                    res.status(500).json({error: 'DB Error'});
+                } else {
+                    // reporterResults -> reporter 테이블 조회 결과 포함
+                    console.log('Reporter info is: ', reporterResults);
+                }
+
+                // 테이블 조회 결과
+                const reporterlist = reporterResults;
+                console.log(reporterlist);
+            })
+
             res.render('map', { policeOfficeName, policeStation, address });
 
         } else {
