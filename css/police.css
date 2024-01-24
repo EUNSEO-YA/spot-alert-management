@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Song+Myung&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&family=Song+Myung&display=swap');
+
+:root {
+    --ruler: 0.5em;
+    --color-red: #AE1100;
+    --color-blue: #4B79A1;
+    --color-navy : #000524;
+    --color-bg: hwb(0 0% 100%);
+    --color-shadow: #BABECC;
+    --color-white: #f2f2f2;
+    --color-border: #78FFCD;
+    --border-radius: 4em;
+  }
+  
+body {
+    background: var(--color-blue);
+    background: -webkit-linear-gradient(to left, #4B79A1 , #283E51);
+    background: linear-gradient(to left, #4B79A1 , #283E51);        
+}
+/* body {
+    background: var(--color-navy);      
+} */
+#Song_Myung{
+    font-family: "Song Myung", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+#Nanum_Myeongjo{
+    font-family: "Nanum Myeongjo", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+h1 {
+    text-align: center;
+    font-size: 2.4em;
+    color: var(--color-white);
+}
+
+#container_map{
+    display: flex;
+    flex-direction: row;
+}
+
+#box_d{
+    flex: 1;
+    margin-top: var(--ruler);
+    margin-bottom: var(--ruler);
+    padding: var(--ruler);
+    border: 2px solid;
+    border-image: linear-gradient(to right, #a1c4fd 0%, #c2e9fb 51%, #a1c4fd 100%);
+    border-image-slice: 1;
+    box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
+}
+#box_m{
+    flex: 1;
+    margin: var(--ruler);
+    padding: var(--ruler);
+    border: 2px solid;
+    border-image: linear-gradient(to right, #a1c4fd 0%, #c2e9fb 51%, #a1c4fd 100%);
+    border-image-slice: 1;
+    box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
+}
+
+#box_bg{
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding: 1em;
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+    border-image: linear-gradient(to right, #25aae1, #40e495, #30dd8a, #2bb673);
+    border-image-slice: 1;
+}
+
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:600,700';
+
+* {font-family: 'Open Sans', sans-serif;}
+
+.rwd-table {
+  margin: auto;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.rwd-table tr:first-child {
+  border-top: none;
+  background: #428bca;
+  color: #fff;
+}
+
+.rwd-table tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  background-color: #f5f9fc;
+}
+
+.rwd-table tr:nth-child(odd):not(:first-child) {
+  background-color: #ebf3f9;
+}
+
+.rwd-table th {
+  display: none;
+}
+
+.rwd-table td {
+  display: block;
+}
+
+.rwd-table td:first-child {
+  margin-top: .5em;
+}
+
+.rwd-table td:last-child {
+  margin-bottom: .5em;
+}
+
+.rwd-table td:before {
+  content: attr(data-th) ": ";
+  font-weight: bold;
+  width: 120px;
+  display: inline-block;
+  color: #000;
+}
+
+.rwd-table th,
+.rwd-table td {
+  text-align: left;
+}
+
+.rwd-table {
+  color: #333;
+  border-radius: .4em;
+  overflow: hidden;
+}
+
+.rwd-table tr {
+  border-color: #bfbfbf;
+}
+
+.rwd-table th,
+.rwd-table td {
+  padding: .5em 1em;
+}
+@media screen and (max-width: 601px) {
+  .rwd-table tr:nth-child(2) {
+    border-top: none;
+  }
+}
+@media screen and (min-width: 600px) {
+  .rwd-table tr:hover:not(:first-child) {
+    background-color: #d8e7f3;
+  }
+  .rwd-table td:before {
+    display: none;
+  }
+  .rwd-table th,
+  .rwd-table td {
+    display: table-cell;
+    padding: .25em .5em;
+  }
+  .rwd-table th:first-child,
+  .rwd-table td:first-child {
+    padding-left: 0;
+  }
+  .rwd-table th:last-child,
+  .rwd-table td:last-child {
+    padding-right: 0;
+  }
+  .rwd-table th,
+  .rwd-table td {
+    padding: 1em !important;
+  }
+}
+
+@-webkit-keyframes leftRight {
+  0%    { -webkit-transform: translateX(0)}
+  25%   { -webkit-transform: translateX(-10px)}
+  75%   { -webkit-transform: translateX(10px)}
+  100%  { -webkit-transform: translateX(0)}
+}
+@keyframes leftRight {
+  0%    { transform: translateX(0)}
+  25%   { transform: translateX(-10px)}
+  75%   { transform: translateX(10px)}
+  100%  { transform: translateX(0)}
+}
+
+
+/* chart css */
+#wrapper {
+    position: relative;
+    border: 1px solid #000;
+    box-shadow: 0 22px 35px -16px rgba(0, 0, 0, 0.71);
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  
+  #chart-bar {
+    position: relative;
+    margin-top: -38px;
+  }
+  
+  .link {
+    position: absolute;
+    bottom: 7px;
+    right: 13px;
+    z-index: 10;
+    color: #ccc;
+    font-size: 12px;
+    text-decoration: none;
+    font-family: Helvetica, Arial;
+  }

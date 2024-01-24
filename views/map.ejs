@@ -3,12 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test</title>
+    <link rel="stylesheet" href="../css/police.css">
+    <title><%=policeOfficeName%> <%=policeStation%></title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 <body>
-    <div id="map" style="width:100%;height:350px;"></div>
-    <h1><%=policeOfficeName%> <%=policeStation%> <%= address %></h1>
-
+    <div id="box_d">
+        <h1 id="Song_Myung"><%=policeOfficeName%> <%=policeStation%> <%= address %> : Song Myung Static</h1>
+        <h1 id="Nanum_Myeongjo"><%=policeOfficeName%> <%=policeStation%> <%= address %> : Nanum Myeongjo Static</h1>
+    </div>
+    <div id="map" style="width:100%;height:50vh;"></div>
+    <div id="container_map">
+        <div id="box_d">
+            <table class="rwd-table">
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <th>PHONE</th>
+                        <th>LOCATION</th>
+                        <th>FIELD</th>
+                    </tr>
+                    <% for (const reporter of reporterlist) { %>
+                        <tr>
+                            <td data-th="Name"><%= reporter.NAME %></td>
+                            <td data-th="PHONE"><%= reporter.PHONE %></td>
+                            <td data-th="LOCATION"><%= reporter.LOCATION %></td>
+                            <td data-th="FIELD"><%= reporter.FIELD %></td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+        <div id="box_m">
+        </div>
+        <div id="box_d">
+        </div>
+    </div>
+    
+    <div id="wrapper">
+        <div id="chart-area">
+      
+        </div>
+        <div id="chart-bar">
+      
+        </div>
+        
+        <a class="link" href="https://apexcharts.com?ref=codepen">apexcharts.com</a>
+    </div>
+    <script type="text/javascript" src="../views/chart.js"></script>
 
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=38a252c97cc5ba2f09615c31c39bc5bf&libraries=services"></script>
     <script>
@@ -20,9 +62,14 @@
     
     // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
     var map = new kakao.maps.Map(mapContainer, mapOption);
-
     // 주소-좌표 변환 객체를 생성합니다
     var geocoder = new kakao.maps.services.Geocoder();
+    // 마커 이미지의 이미지 주소입니다
+    var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+    // 마커 이미지의 이미지 크기 입니다
+    var imageSize = new kakao.maps.Size(24, 35); 
+    // 마커 이미지를 생성합니다    
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);  
     // 주소로 좌표를 검색합니다
     geocoder.addressSearch("<%= address %>", function(result, status) {
 
@@ -34,12 +81,13 @@
         // 결과값으로 받은 위치를 마커로 표시합니다
         var marker = new kakao.maps.Marker({
             map: map,
-            position: coords
+            position: coords,
+            image : markerImage // 마커 이미지 
         });
 
         // 인포윈도우로 장소에 대한 설명을 표시합니다
         var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;"><%=policeOfficeName%> <%=policeStation%></div>'
+            content: '<div style="width:150px;text-align:center;padding:6px 0; color:#000000;"><%=policeOfficeName%> <%=policeStation%></div>'
         });
         infowindow.open(map, marker);
 

@@ -200,6 +200,16 @@
                 <input type="text" id="LOCATION" name="LOCATION" placeholder="LOCATION">
             </p>
         </div>
+        <div>
+            <p> 구분 
+                <input type="text" id="FIELD" name="FIELD" placeholder="FIELD">
+            </p>
+        </div>
+        <div>
+            <p> 사진 
+                <input type="text" id="IMG" name="IMG" placeholder="IMG">
+            </p>
+        </div>
         <button class="btn_red" onclick="self.close();">취소하기</button>
         <button class="btn_blue" onclick="submitForm();">신고하기</button>
     </form>
@@ -214,14 +224,16 @@
             const NAME = document.getElementById('NAME').value;
             const PHONE = document.getElementById('PHONE').value;
             const LOCATION = document.getElementById('LOCATION').value;
-        
+            const FIELD = document.getElementById('FIELD').value;
+            const IMG = document.getElementById('IMG').value;
+
             // Fetch API를 사용하여 서버에 데이터 전송
             fetch('http://localhost:8000/submitReport', {
                 method: 'POST',
                 headers: {
                     'Content-Type' : 'application/json',
                 },
-                body: JSON.stringify({NAME, PHONE, LOCATION}),
+                body: JSON.stringify({NAME, PHONE, LOCATION, FIELD, IMG}),
             })
             .then(response => response.json())
             .then(data => {
