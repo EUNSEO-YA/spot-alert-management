@@ -56,8 +56,22 @@ request(options, async(error, response, body) => {
             const policeStation = isPoliceOfficeNameIncluded['구분'];
             const address = isPoliceOfficeNameIncluded['주소'];
 
+            const connection = mysql.createConnection({
+                host: 'localhost',
+                user: 'root',
+                password: 'eunseo2823!!',
+                database: 'openapi',
+            });
+            
+            connection.connect((err) => {
+                if (err) {
+                  console.error('MySQL 연결 오류: ' + err.stack);
+                  return;
+                }
+            });
+
             // MySQL에서 reporter 테이블 조회
-            connection.query('SELECT * FROM reporter', (error,reporterResults, fields)=> {
+            connection.query('SELECT * FROM report_중동', (error,reporterResults, fields)=> {
                 if(error) {
                     console.error('MySQL 에러: ', error);
                     res.status(500).json({error: 'DB Error'});
