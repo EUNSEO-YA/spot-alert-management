@@ -56,11 +56,14 @@ request(options, async(error, response, body) => {
             const policeStation = isPoliceOfficeNameIncluded['구분'];
             const address = isPoliceOfficeNameIncluded['주소'];
 
+            //Connet to mysql
             const connection = mysql.createConnection({
                 host: 'localhost',
                 user: 'root',
                 password: 'eunseo2823!!',
-                database: 'openapi',
+                database: 'reporter',
+                // password: 'root',
+                // database: 'madang',
             });
             
             connection.connect((err) => {
@@ -72,6 +75,7 @@ request(options, async(error, response, body) => {
 
             // MySQL에서 reporter 테이블 조회
             connection.query('SELECT * FROM report_중동', (error,reporterResults, fields)=> {
+
                 if(error) {
                     console.error('MySQL 에러: ', error);
                     res.status(500).json({error: 'DB Error'});
@@ -83,9 +87,17 @@ request(options, async(error, response, body) => {
                 // 테이블 조회 결과
                 const reporterlist = reporterResults;
                 console.log(reporterlist);
-            })
 
-            res.render('map', { policeOfficeName, policeStation, address });
+                const extractedData = reporterlist.map(reporter => ({
+                    NAME: reporter.NAME,
+                    PHONE: reporter.PHONE,
+                    LOCATION: reporter.LOCATION,
+                    FIELD: reporter.FIELD,
+                    IMG: reporter.IMG
+                }));
+                res.render('map', { policeOfficeName, policeStation, address, reporterlist: extractedData});
+
+            })
 
         } else {
             res.send('Please try again.');
@@ -98,6 +110,8 @@ const connection = mysql.createConnection({
     user: 'root',
     password: 'eunseo2823!!',
     database: 'reporter',
+    // password: 'root',
+    // database: 'madang',
 });
 
 connection.connect((err) => {
@@ -118,7 +132,7 @@ app.post('/submitReport', (req, res) => {
     console.log('신고 접수 요청 받음');
 
     connection.query(
-        'INSERT INTO reporter VALUES (?, ?, ?)', [ req.body.NAME, req.body.PHONE, req.body.LOCATION],
+        'INSERT INTO reporter VALUES (?, ?, ?, ?, ?)', [ req.body.NAME, req.body.PHONE, req.body.LOCATION, req.body.FIELD, req.body.IMG],
         (error, results) => {
             if(error){
                 console.error('MySQL 에러: ', error);

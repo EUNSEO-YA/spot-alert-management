@@ -3,12 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test</title>
+    <title><%=policeOfficeName%> <%=policeStation%></title>
 </head>
 <body>
     <div id="map" style="width:100%;height:350px;"></div>
     <h1><%=policeOfficeName%> <%=policeStation%> <%= address %></h1>
 
+    <ul>
+        <% for (const reporter of reporterlist) { %>
+            <li>
+                <strong>Name:</strong> <%= reporter.NAME %><br>
+                <strong>Phone:</strong> <%= reporter.PHONE %><br>
+                <strong>Location:</strong> <%= reporter.LOCATION %><br>
+                <strong>Field:</strong> <%= reporter.FIELD %><br>
+            </li>
+        <% } %>
+    </ul>
 
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=38a252c97cc5ba2f09615c31c39bc5bf&libraries=services"></script>
     <script>
